@@ -11,7 +11,9 @@ const ERASER_MODE = 'eraser';
 let currentMode = COLOR_MODE;
 let mouseDown = false;
 
-//create the grid
+// Functions section
+
+
 function build(size){
     for(let rowNum = 0; rowNum < size; rowNum++){
         const row = document.createElement("div");
@@ -50,37 +52,6 @@ function getNewSize(){
     } while (isNaN(currentSize) || currentSize < 0 || currentSize > 100);
     return currentSize;
 }
-
-const clearButton = document.getElementById("clearButton");
-clearButton.addEventListener('click', () => reset(currentSize));
-
-const sizeSlider = document.getElementById('sizeSlider');
-const sliderValue = document.getElementById('sliderValue');
-
-sizeSlider.addEventListener('input', () => {
-    currentSize = sizeSlider.value
-    sliderValue.textContent = currentSize + " x " + currentSize;
-    reset(sizeSlider.value);
-})
-
-const colorPicker = document.getElementById('colorPicker');
-colorPicker.addEventListener('input', () => {
-    currentColor = colorPicker.value;
-})
-
-const colorButton = document.getElementById('colorButton');
-colorButton.classList.add('active');
-colorButton.addEventListener('click', () => setMode(COLOR_MODE));
-
-const rainbowButton = document.getElementById('rainbowButton');
-rainbowButton.addEventListener('click', () => setMode(RAINBOW_MODE));
-
-const eraserButton = document.getElementById('eraserButton');
-eraserButton.addEventListener('click', () => setMode(ERASER_MODE));
-
-document.body.addEventListener('mousedown', () => mouseDown = true);
-document.body.addEventListener('mouseup', () => mouseDown = false);
-
 
 function setMode(mode){
     currentMode = mode;
@@ -128,5 +99,40 @@ function getRandomRGB(){
     const b = getRandomInt(0, 255);
     return `rgb(${r}, ${g}, ${b})`;
 }
+
+
+
+// Sketchpad logic
+
+const clearButton = document.getElementById("clearButton");
+clearButton.addEventListener('click', () => reset(currentSize));
+
+const sizeSlider = document.getElementById('sizeSlider');
+const sliderValue = document.getElementById('sliderValue');
+
+sizeSlider.addEventListener('input', () => {
+    currentSize = sizeSlider.value
+    sliderValue.textContent = currentSize + " x " + currentSize;
+    reset(sizeSlider.value);
+})
+
+const colorPicker = document.getElementById('colorPicker');
+colorPicker.addEventListener('input', () => {
+    currentColor = colorPicker.value;
+})
+
+const colorButton = document.getElementById('colorButton');
+colorButton.classList.add('active');
+colorButton.addEventListener('click', () => setMode(COLOR_MODE));
+
+const rainbowButton = document.getElementById('rainbowButton');
+rainbowButton.addEventListener('click', () => setMode(RAINBOW_MODE));
+
+const eraserButton = document.getElementById('eraserButton');
+eraserButton.addEventListener('click', () => setMode(ERASER_MODE));
+
+document.body.addEventListener('mousedown', () => mouseDown = true);
+document.body.addEventListener('mouseup', () => mouseDown = false);
+
 
 build(defaultSize);
